@@ -1,11 +1,14 @@
+{}:
 let
-  pkgs = import ./nix/nixpkgs.nix {};
+  pkgs = import ./nix/nixpkgs.nix { config.android_sdk.accept_license = true; };
+
+  mainBuildToolsVersion = "29.0.2";
 
   android = pkgs.androidenv.composeAndroidPackages {
-    # toolsVersion = "25.2.5";
-    # platformToolsVersion = "27.0.1";
+    toolsVersion = "26.1.1";
+    platformToolsVersion = "29.0.6";
+    buildToolsVersions = [ mainBuildToolsVersion ];
     platformVersions = [ "29" ];
-    buildToolsVersions = [ "29.0.2" ];
   };
 in
 pkgs.mkShell {
@@ -16,4 +19,5 @@ pkgs.mkShell {
   ];
 
   ANDROID_HOME = "${android.androidsdk}/libexec/android-sdk";
+  GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${android.androidsdk}/libexec/android-sdk/build-tools/${mainBuildToolsVersion}/aapt2";
 }
