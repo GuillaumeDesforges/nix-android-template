@@ -4,7 +4,7 @@
     package="com.example.myapplication"
 >
     <application android:label="Demo App">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.myapplication.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
